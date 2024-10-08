@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>עוגות הבנטו החדשות - חוויה קולינרית מושלמת</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-color: #FF85A2;
+            --secondary-color: #FFC0CB;
+            --accent-color: #FF1493;
+            --text-color: #333;
+            --background-color: #FFF5F5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cake-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.cdn-files-a.com/uploads/7265088/800_640a0b8c65292.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .features {
+            padding: 4rem 0;
+            background-color: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-item i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .gallery {
+            padding: 4rem 0;
+            background-color: var(--background-color);
+        }
+
+        .gallery h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .cta {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: white;
+            color: var(--accent-color);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        footer {
+            background-color: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .feature-grid, .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .frosting {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating-cake {
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        #cake1 { top: 10%; left: 5%; }
+        #cake2 { top: 30%; right: 5%; }
+        #cake3 { bottom: 20%; left: 10%; }
+    </style>
+</head>
+<body>
+    <div class="frosting" id="frosting"></div>
+
+    <header>
+        <div class="cake-bg"></div>
+        <div class="container">
+            <h1>🎉 עוגות הבנטו החדשות 🎉</h1>
+            <p>חוויה קולינרית המשלבת טעמים מתוחכמים, עיצוב אישי, ותשומת לב לפרטים הקטנים</p>
+        </div>
+        <img src="https://images.cdn-files-a.com/uploads/7265088/800_640a0b8c65292.jpg" alt="Floating Cake" class="floating-cake" id="cake1" width="100">
+        <img src="https://images.cdn-files-a.com/uploads/7265088/800_640a0b8d78bc1.jpg" alt="Floating Cake" class="floating-cake" id="cake2" width="100">
+        <img src="https://images.cdn-files-a.com/uploads/7265088/800_640a0b8e5601b.jpg" alt="Floating Cake" class="floating-cake" id="cake3" width="100">
+    </header>
+
+    <section class="features">
+        <div class="container">
+            <h2>🥇 מאפיינים</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fas fa-birthday-cake"></i>
+                    <h3>עוגות בעבודת יד</h3>
+                    <p>מתאימות לאירועים אינטימיים או כפינוק אישי</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-lemon"></i>
+                    <h3>טעמים מיוחדים</h3>
+                    <p>וניל-פטל, שוקולד-קרמל מלוח, ומאצ'ה-שוקולד לבן</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-gift"></i>
+                    <h3>אריזה מוקפדת</h3>
+                    <p>כל עוגה ארוזה בקפידה ומתאימה כמתנה מרגשת</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <div class="container">
+            <h2>📸 גלריית עוגות</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.cdn-files-a.com/uploads/7265088/800_640a0b8c65292.jpg" alt="Bento Cake 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.cdn-files-a.com/uploads/7265088/800_640a0b8d78bc1.jpg" alt="Bento Cake 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.cdn-files-a.com/uploads/7265088/800_640a0b8e5601b.jpg" alt="Bento Cake 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.cdn-files-a.com/uploads/7265088/800_640a0b8ee6367.jpg" alt="Bento Cake 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.cdn-files-a.com/uploads/7265088/800_640b98f50c299.jpg" alt="Bento Cake 5">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.cdn-files-a.com/uploads/7265088/800_640b99012a531.jpg" alt="Bento Cake 6">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.cdn-files-a.com/uploads/7265088/800_6419edbf86b69.jpg" alt="Bento Cake 7">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.cdn-files-a.com/uploads/7265088/800_6424713178c5c.jpg" alt="Bento Cake 8">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.cdn-files-a.com/uploads/7265088/800_643adefc781e7.jpg" alt="Bento Cake 9">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>🎯 הגרלה מיוחדת</h2>
+            <p>רוצים לזכות בעוגת בנטו במתנה? תייגו חבר בתגובות וכתבו איזה טעם מסקרן אתכם, ואולי תזכו!</p>
+            <a href="#" class="cta-button">השתתפו בהגרלה</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 עוגות הבנטו. כל הזכויות שמורות.</p>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.feature-item', {
+            scrollTrigger: {
+                trigger: '.features',
+                start: 'top center'
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2
+        });
+
+        gsap.from('.gallery-item', {
+            scrollTrigger: {
+                trigger: '.gallery',
+                start: 'top center'
+            },
+            scale: 0.8,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.1
+        });
+
+        // Frosting effect
+        const frosting = document.getElementById('frosting');
+        
+        document.addEventListener('mousemove', (e) => {
+            const frostingDot = document.createElement('div');
+            frostingDot.className = 'frosting-dot';
+            frostingDot.style.left = e.clientX + 'px';
+            frostingDot.style.top = e.clientY + 'px';
+            frostingDot.style.backgroundColor = getRandomColor();
+            frostingDot.style.width = '10px';
+            frostingDot.style.height = '10px';
+            frostingDot.style.borderRadius = '50%';
+            frostingDot.style.position = 'fixed';
+            frostingDot.style.pointerEvents = 'none';
+            frosting.appendChild(frostingDot);
+
+            gsap.to(frostingDot, {
+                opacity: 0,
+                scale: 0,
+                duration: 1,
+                onComplete: () => {
+                    frosting.removeChild(frostingDot);
+                }
+            });
+        });
+
+        function getRandomColor() {
+            const colors = ['#FF85A2', '#FFC0CB', '#FF1493', '#FFB6C1', '#FFA07A'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+</body>
+</html>
